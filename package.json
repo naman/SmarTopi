@@ -1,0 +1,14 @@
+{
+  "name": "SmarTopi",
+  "version": "1.0.0",
+  "description": "SmarTopi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "naman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

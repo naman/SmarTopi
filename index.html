@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Timeseries Plot</title>
+</head>
+
+<body>
+    <img src="" height="350" width="550" id="image">
+    <div id="graph"></div>
+ 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+
+    var arry = [];
+    var arrx = [];
+    $.get(
+        "http://localhost:8080/list",
+
+        function(data) {
+            arry = data;
+
+            for (i = 0; i < arry.length; i++) { 
+                arrx[i] = arry[i].toString().split("frame_")[1].split(".jpg")[0];
+            }
+
+            console.log(arrx);
+
+            var myPlot = document.getElementById('graph'),
+            data = [{
+                x: arrx,
+                y: arry,
+                mode: 'markers',
+                marker: {
+                    size: 10
+                }
+            }];
+
+        Plotly.newPlot('graph', data);
+
+        myPlot.on('plotly_hover', function(data) {
+
+            var info = data.points.map(function(d) {
+                return (d.y);
+            });
+            document.getElementById("image").setAttribute("src", "./ImageData/"+info);
+        });
+
+        } ,"json"
+    );
+
+    </script>
+</body>
+
+</html>
