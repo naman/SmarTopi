@@ -5,6 +5,10 @@ import ssl
 from time import sleep
 from random import uniform
 
+# Done as a part of our IOT project by 
+# Udayan, Naman, Srishti and Hemanth
+
+
 connflag = False
 
 def on_connect(client, userdata, flags, rc):

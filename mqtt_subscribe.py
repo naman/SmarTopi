@@ -4,6 +4,9 @@ import socket
 import ssl
 from s3_get_file import s3_get_file
 
+# Done as a part of our IOT project by 
+# Udayan, Naman, Srishti and Hemanth
+
 def on_connect(client, userdata, flags, rc):
     print("Connection returned result: " + str(rc) )
     client.subscribe("#" , 1 )
