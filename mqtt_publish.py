@@ -35,7 +35,7 @@ caPath = "./RasPi3-creds/root-CA.crt"
 certPath = "./RasPi3-creds/d69802753f-certificate.pem.crt"
 keyPath = "./RasPi3-creds/d69802753f-private.pem.key"
 
-mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1, ciphers=None)
+mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
 mqttc.connect(awshost, awsport, keepalive=60)
 
