@@ -5,10 +5,6 @@ import ssl
 from time import sleep
 from random import uniform
 
-# Done as a part of our IOT project by 
-# Udayan, Naman, Srishti and Hemanth
-
-
 connflag = False
 
 def on_connect(client, userdata, flags, rc):
@@ -31,9 +27,9 @@ awshost = "a1n1j1jd1jtkgg.iot.us-west-2.amazonaws.com"
 awsport = 8883
 clientId = "RasPi3"
 thingName = "RasPi3"
-caPath = "./RasPi3-creds/root-CA.crt"
-certPath = "./RasPi3-creds/d69802753f-certificate.pem.crt"
-keyPath = "./RasPi3-creds/d69802753f-private.pem.key"
+caPath = "./creds/root-CA.crt"
+certPath = "./creds/d69802753f-certificate.pem.crt"
+keyPath = "./creds/d69802753f-private.pem.key"
 
 mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
