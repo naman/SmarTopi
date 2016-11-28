@@ -98,3 +98,5 @@ list.json
 npm-debug.log
 _Rapp.history
 node_modules
+
+.DS_Store/

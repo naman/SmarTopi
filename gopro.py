@@ -7,6 +7,12 @@ from s3_upload_file import upload_to_s3
 from goprohero import GoProHero
 from bs4 import BeautifulSoup
 import subprocess
+from fbrecog import recognize
+
+access_token = "EAACEdEose0cBAF2LiQE6mNG8ixIvblmwHwlhAwjo7tOas1ahfXlGUpLsJkQWq5iq3ENkEojFtKC5xEUSQs$
+cookie = "datr=fPqQVfDF5cEMKwcywPvt70jN; _ga=GA1.2.1788536487.1437330029; locale=en_GB; sb=_U0HV7uS$
+fb_dtsg = "AQGQIXXXTjK_:AQH9HojIEPNb"
+
 
 def listFD(url, ext=''):
     page = requests.get(url).text
@@ -29,22 +35,22 @@ for x in xrange(10):
 	camera.command('record', 'on')
 	time.sleep(1) # delays for 1 second
 	camera.command('record', 'off')
-	
+
 	time.sleep(1) # delays for 1 second
-	
+
 	file_list = listFD(url, ext)
 	video_url = file_list[-1]
-	
+
 	cap = cv2.VideoCapture(video_url)
-	
+
 	t =  datetime.datetime.now().strftime("%d_%B_%Y_%I:%M:%S%p")
-	
+
 	while cap.isOpened():
 	    ret,frame = cap.read()
 	    frame_name = "frame_%s.jpg" % t
 	    cv2.imwrite(frame_name, frame)
 	    break
-	
+
 	cap.release()
 	time.sleep(1)
 
@@ -54,7 +60,6 @@ time.sleep(10)
 
 print "sending images to S3, messages to MQTT clients"
 from mqtt_publish import publish_message
-#time.sleep(10)
 
 for f in os.listdir("."):
     if f.endswith(".jpg"):
@@ -63,21 +68,21 @@ for f in os.listdir("."):
 	publish_message("Image",f)
 	print "sent " + f
 
-f = open('recognition_dump', 'w')
-lol= []
-
+lol = []
 for f in os.listdir("."):
     if f.endswith(".jpg"):
-        # waiting for recognition
         output = subprocess.check_output("recog" + " " + f, shell=True)
 	lol.append(output)
 
-f.write(lol)	
-	
+print "Recognition results"
+print lol
+
+fb = []
+for f in os.listdir("."):
+    if f.endswith(".jpg"):
+	fb.append(recognize(f,access_token,cookie,fb_dtsg))
+
+print "Facebook Recognition"
+print fb
 
 print "Check timeseries plot on any client."
-
-#call tensorflow here
-
-#insert face detection logic
-
