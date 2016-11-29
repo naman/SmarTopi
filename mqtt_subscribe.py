@@ -14,7 +14,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("topic: "+msg.topic)
     print("payload: "+str(msg.payload, 'utf-8'))
-    # s3_get_file(str(msg.payload, 'utf-8'), "imagestoressiot")
+    s3_get_file(str(msg.payload, 'utf-8'), "imagestoressiot")
 
 #def on_log(client, userdata, level, msg):
 #    print(msg.topic+" "+str(msg.payload))

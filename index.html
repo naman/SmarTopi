@@ -7,13 +7,15 @@
 </head>
 
 <body>
-    <img src="" height="350" width="550" id="image">
+    <img src="" height="350" width="550" id="image"> 
+    <br/>
+    Facebook face Recognition Result:
+    <p id="fb"></p>
+    Object Recognition Result:
+    <p id="recognition"></p>
     <div id="graph"></div>
- 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-
     var arry = [];
     var arrx = [];
     $.get(
@@ -22,35 +24,57 @@
         function(data) {
             arry = data;
 
-            for (i = 0; i < arry.length; i++) { 
-                arrx[i] = arry[i].toString().split("frame_")[1].split(".jpg")[0];
+            var copy_arry = arry.slice(0);;
+
+            for (i = 0; i < arry.length; i++) {
+                arrx[i] = arry[i]["name"].toString().split("frame_")[1].split(".jpg")[0];
             }
 
-            console.log(arrx);
+            for (i = 0; i < arry.length; i++) {
+                arry[i] = arry[i]["name"].toString();
+            }
+
+            console.log(copy_arry);
+
 
             var myPlot = document.getElementById('graph'),
-            data = [{
-                x: arrx,
-                y: arry,
-                mode: 'markers',
-                marker: {
-                    size: 10
+                data = [{
+                    x: arrx,
+                    y: arry,
+                    mode: 'markers',
+                    marker: {
+                        size: 10
+                    }
+                }];
+
+            Plotly.newPlot('graph', data);
+
+            myPlot.on('plotly_hover', function(data) {
+
+                var info = data.points.map(function(d) {
+                    return (d.y);
+                });
+
+                document.getElementById("image").setAttribute("src", "./ImageData/" + info);
+
+
+                for (i = 0; i < copy_arry.length; i++) {
+                    if (copy_arry[i]["name"] == info) {
+                        var recognition = copy_arry[i]["recognition"];
+                        var fb = copy_arry[i]["fb"];
+                    }
+
                 }
-            }];
 
-        Plotly.newPlot('graph', data);
+                console.log(fb);
+                console.log(recognition);
+                document.getElementById("fb").innerHTML = fb;
+                document.getElementById("recognition").innerHTML = recognition;
 
-        myPlot.on('plotly_hover', function(data) {
-
-            var info = data.points.map(function(d) {
-                return (d.y);
             });
-            document.getElementById("image").setAttribute("src", "./ImageData/"+info);
-        });
 
-        } ,"json"
+        }, "json"
     );
-
     </script>
 </body>
 
