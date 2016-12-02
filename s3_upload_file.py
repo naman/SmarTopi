@@ -3,8 +3,8 @@ import os
 import boto
 from boto.s3.key import Key
 
-AWS_KEY = 'AKIAJZ5TLGRFFKAG6IPA'
-AWS_SECRET = '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'
+AWS_KEY = ''
+AWS_SECRET = ''
 
 def upload_to_s3(file, bucket, key, aws_access_key_id=AWS_KEY, aws_secret_access_key=AWS_SECRET, callback=None, md5=None, reduced_redundancy=False, content_type=None):
     """
