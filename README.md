@@ -1,5 +1,5 @@
 # SmarTopi
-Code for IoT project - a smart cap for the visually impaired helping them recognize objects
+A proof of concept smart cap for the visually impaired helping them recognize objects. Used a GoPro camera attached to Raspberry Pi with on-device tensorflow learning and object speech recognition using Mycroft AI.
 
 Installation
 
